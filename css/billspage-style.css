@@ -1,0 +1,60 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid var(--border-color);
+
+}
+
+th {
+    padding: 10px;
+    text-align: left;
+}
+
+
+td {
+    padding: 10px;
+}
+
+.return i {
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+button.details {
+    border: none;
+    background-color: transparent;
+    color: var(--accent-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 26px;
+}
+
+.back-btn {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    opacity: 0.8;
+}
+
+.back-btn {
+    padding-left: 14px;
+    color: var(--primary-color);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 10px;
+}

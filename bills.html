@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/billspage-style.css">
+    <link rel="stylesheet" href="./css/toast-style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <div class="icon">
+                    <img src="./assets/img/icons/nike_icon.svg" alt="Nike_icon">
+                </div>
+                <h1>Nike</h1>
+            </a>
+            <ul class="navigation">
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li class="active">
+                    <a href="./bills.html">Bills</a>
+                </li>
+                <li>
+                    <a href="./cart.html" class="cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <div class="indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Customer Name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>Item Numbers</th>
+                    <th>Total Quantity</th>
+                    <th>Total Price</th>
+                    <th>Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item-row">
+                    <td class="order-item">
+                        <p class="code-id">123456</p>
+                        <div class="dropdown">
+                            <button class="details">
+                                Details
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="customer-name">
+                        Admin admin
+                    </td>
+                    <td class="order-date">18/08/2000</td>
+                    <td class="item-numbers">1</td>
+                    <td class="total-quantity">1</td>
+                    <td class="price">$4200</td>
+                    <td class="return">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="action-btns">
+            <a href="./index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Shopping</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast  -->
+    <div id="toast"></div>
+
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./js/pages/bills.js"></script>
+</body>
+
+</html>

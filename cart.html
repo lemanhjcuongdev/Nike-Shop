@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/global-style.css">
+    <link rel="stylesheet" href="./css/cartpage-style.css">
+    <link rel="stylesheet" href="./css/toast-style.css">
+    <link rel="stylesheet" href="./css/modal-style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <div class="icon">
+                    <img src="./assets/img/icons/nike_icon.svg" alt="Nike_icon">
+                </div>
+                <h1>Nike</h1>
+            </a>
+            <ul class="navigation">
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="./bills.html">Bills</a>
+                </li>
+                <li class="active">
+                    <a href="./cart.html" class="cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <div class="indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Subtotal
+                    </th>
+                    <th>Total</th>
+                    <th>Clear Cart</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--  -->
+            </tbody>
+        </table>
+
+        <h2 class="total-price">
+            <!-- Total: $12600 -->
+        </h2>
+
+        <div class="action-btns">
+            <a href="./index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Shopping</span>
+            </a>
+            <button class="buy-btn">
+                Buy
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast  -->
+    <div id="toast"></div>
+
+    <!-- Modal  -->
+    <div class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <span class="modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </span>
+            <div class="modal-main">
+                <h2 class="modal-title">Thông tin người mua</h2>
+                <div class="modal-form">
+                    <form action="#" method="post">
+                        <div>
+                            <label for="lastname">Họ và tên<span class="require-field" title="Bắt buộc nhập">*</span>
+                            </label>
+                        </div>
+                        <div class="form-item">
+                            <input type="text" id="lastname" name="lastname" placeholder="Họ" class="full-size">
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <input type="text" id="firstname" name="firstname" placeholder="Tên" value=""
+                                class="full-size" />
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <label for="email">Email<span class="require-field" title="Bắt buộc nhập">*</span>
+                            </label>
+                            <input type="email" name="email" id="email" placeholder="Email" value="" class="full-size">
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <label for="tel">Số điện thoại<span class="require-field" title="Bắt buộc nhập">*</span>
+                            </label>
+                            <input type="tel" name="tel" id="tel" placeholder="Số điện thoại" value=""
+                                class="full-size">
+                            <small></small>
+                        </div>
+                        <div>
+                            <label for="province">Địa chỉ<span class="require-field" title="Bắt buộc nhập">*</span>
+                            </label>
+                        </div>
+                        <div class="form-item">
+                            <select class="full-size" name="province" id="province">
+                                <option value="0">--Chọn Tỉnh / Thành phố--</option>
+                            </select>
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <select class="full-size" name="district" id="district">
+                                <option value="0">--Chọn Quận / Huyện--</option>
+                            </select>
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <select class="full-size" name="ward" id="ward">
+                                <option value="0">--Chọn Phường / Xã--</option>
+                            </select>
+                            <small></small>
+                        </div>
+                        <div class="form-item">
+                            <input type="text" id="address" name="address" placeholder="Số nhà" class="full-size">
+                            <small></small>
+                        </div>
+                        <div>
+                            <label for="message">Lời nhắn</label>
+                            <textarea name="message" id="message" placeholder="" cols="50" rows="10"
+                                class="full-size"></textarea>
+                        </div>
+                        <div class="submit">
+                            <button type="reset">Hủy</button>
+                            <button type="submit">Xác nhận</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./js/pages/cart.js"></script>
+</body>
+
+</html>
