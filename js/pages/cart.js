@@ -14,7 +14,6 @@ import toast from "../components/toast/Toast.js";
 import { getLocation } from "../api/location.js";
 import validate from "../utils/validator.js";
 import OrderInfo from "../models/OrderInfo.js";
-import CartItem from "../models/CartItem.js";
 import { getOrders, postOrder } from "../api/orders.js";
 
 const productList = getLocalStorage(keyLocalStorageListSP);
@@ -147,32 +146,34 @@ increaseBtns.forEach(function (increaseBtn) {
 
 removeBtns.forEach(function (removeBtn) {
     removeBtn.addEventListener("click", function (e) {
-        const parentElement = getParentElement(e.target, ".item-row");
+        if (confirm("Are you sure you want to remove this item?")) {
+            const parentElement = getParentElement(e.target, ".item-row");
 
-        parentElement.remove();
+            parentElement.remove();
 
-        //get data from localStorage again
-        const processingCartList = getLocalStorage(keyLocalStorageItemCart);
+            //get data from localStorage again
+            const processingCartList = getLocalStorage(keyLocalStorageItemCart);
 
-        //remove item in local storage
-        const newCartList = processingCartList.filter(
-            (item) => item.idSP !== +parentElement.id
-        );
+            //remove item in local storage
+            const newCartList = processingCartList.filter(
+                (item) => item.idSP !== +parentElement.id
+            );
 
-        //save list to local storage and change cart indicator
-        changeIndicator(newCartList);
-        //update total price
-        getTotalPrice(newCartList);
+            //save list to local storage and change cart indicator
+            changeIndicator(newCartList);
+            //update total price
+            getTotalPrice(newCartList);
 
-        //set empty state if necessary
-        setEmptyState(newCartList);
+            //set empty state if necessary
+            setEmptyState(newCartList);
 
-        // showSuccess();
-        toast({
-            title: "Thành công!",
-            message: "Đã xóa sản phẩm khỏi giỏ hàng!",
-            type: "success",
-        });
+            // showSuccess();
+            toast({
+                title: "Thành công!",
+                message: "Đã xóa sản phẩm khỏi giỏ hàng!",
+                type: "success",
+            });
+        }
     });
 });
 
@@ -361,9 +362,12 @@ formElement.onsubmit = function (e) {
                 });
             });
 
+            //change quantity of product list
             setLocalStorage(keyLocalStorageListSP, productList);
+            //clear cart
             clearLocalStorage(keyLocalStorageItemCart);
-            // window.location.href = "bills.html";
+            //redirect to bills page (haven't finished yet)
+            window.location.href = "bills.html";
         });
     }
 };

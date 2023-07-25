@@ -10,6 +10,10 @@ cartList.length === 0
 
 export function changeIndicator(cartList) {
     setLocalStorage(keyLocalStorageItemCart, cartList);
-    cartIndicator.style.display = "flex";
-    cartIndicator.innerText = cartList.length;
+    if (!cartList.length) {
+        cartIndicator.style.display = "none";
+    } else {
+        cartIndicator.style.display = "flex";
+        cartIndicator.innerText = cartList.length;
+    }
 }

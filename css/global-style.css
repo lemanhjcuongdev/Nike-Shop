@@ -98,3 +98,17 @@ li a.cart .indicator {
     max-width: 1366px;
     margin: 80px auto;
 }
+
+#loading-icon {
+    animation: 1s spinner infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
