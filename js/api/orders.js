@@ -18,7 +18,7 @@ export const getOrders = async () => {
     } catch (error) {
         toast({
             title: "Không lấy được dữ liệu đơn hàng",
-            message: error.message,
+            message: "Có thể JSON Server đã bị tắt",
             type: "error",
         });
     }
@@ -42,7 +42,7 @@ export const postOrder = async (orderData) => {
     } catch (error) {
         toast({
             title: "Không gửi được dữ liệu đơn hàng",
-            message: error.message,
+            message: "Có thể JSON Server đã bị tắt",
             type: "error",
         });
     }
@@ -65,7 +65,7 @@ export const deleteOrder = async (id) => {
     } catch (error) {
         toast({
             title: "Không thể xóa dữ liệu đơn hàng",
-            message: error.message,
+            message: "Có thể JSON Server đã bị tắt",
             type: "error",
         });
     }

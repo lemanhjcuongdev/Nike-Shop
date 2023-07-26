@@ -1,9 +1,7 @@
 #toast {
     position: fixed;
-    top: 4px;
+    top: 64px;
     left: 50%;
-    /* bottom: 26px;
-    left: 26px; */
     transform: translateX(-50%);
     z-index: 1806;
     display: flex;
@@ -17,7 +15,6 @@
     padding: 10px 0;
     border-radius: 2px;
     border-right: 4px solid;
-    /* box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08); */
     box-shadow: var(--box-shadow);
     min-width: 400px;
     max-width: 450px;

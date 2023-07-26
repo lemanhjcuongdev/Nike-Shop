@@ -37,29 +37,6 @@
           "soLuong": 1
         }
       ]
-    },
-    {
-      "id": 831483,
-      "name": "CUONG LE",
-      "phone_number": "+84372843798",
-      "email": "cuong.dz.1806@gmail.com",
-      "address": "Kim Nguu, Phường Trúc Bạch, Quận Ba Đình, Thành phố Hà Nội",
-      "message": "abc",
-      "order_date": 1690360284689,
-      "cart_items": [
-        {
-          "idSP": 1,
-          "soLuong": 1
-        },
-        {
-          "idSP": 2,
-          "soLuong": 1
-        },
-        {
-          "idSP": 3,
-          "soLuong": 1
-        }
-      ]
     }
   ]
 }
