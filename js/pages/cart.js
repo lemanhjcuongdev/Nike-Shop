@@ -11,7 +11,7 @@ import {
 } from "../localStorage.js";
 import getParentElement from "../utils/getParentElement.js";
 import toast from "../components/toast/Toast.js";
-import { getLocation } from "../api/location.js";
+import { getLocation } from "../api/getAdministrativeUnits.js";
 import validate from "../utils/validator.js";
 import OrderInfo from "../models/OrderInfo.js";
 import { getOrders, postOrder } from "../api/orders.js";
@@ -212,59 +212,59 @@ buyBtn.addEventListener("click", function (e) {
     }
 });
 
-function loadLocation(path, selector, value = "") {
+async function loadLocation(path, selector, value = "") {
     // fetchAPI
-    getLocation(path).then((data) => {
-        let filteredData = [];
-        const selection = document.querySelector(selector);
+    const data = await getLocation(path);
 
-        switch (selector) {
-            case "#province":
-                {
-                    filteredData = data;
-                }
-                break;
-            case "#district":
-                {
-                    //clean old result
-                    selection.innerHTML = "";
+    let filteredData = [];
+    const selection = document.querySelector(selector);
 
-                    //filter data by selected province code
-                    filteredData = data.filter(
-                        (item) => item.province_code === +value
-                    );
+    switch (selector) {
+        case "#province":
+            {
+                filteredData = data;
+            }
+            break;
+        case "#district":
+            {
+                //clean old result
+                selection.innerHTML = "";
 
-                    //insert placeholder option
-                    filteredData.unshift({
-                        name: "--Chọn Quận / Huyện--",
-                        code: 0,
-                    });
-                }
-                break;
-            case "#ward":
-                {
-                    selection.innerHTML = "";
+                //filter data by selected province code
+                filteredData = data.filter(
+                    (item) => item.province_code === +value
+                );
 
-                    filteredData = data.filter(
-                        (item) => item.district_code === +value
-                    );
+                //insert placeholder option
+                filteredData.unshift({
+                    name: "--Chọn Quận / Huyện--",
+                    code: 0,
+                });
+            }
+            break;
+        case "#ward":
+            {
+                selection.innerHTML = "";
 
-                    filteredData.unshift({
-                        name: "--Chọn Phường / Xã--",
-                        code: 0,
-                    });
-                }
-                break;
-        }
+                filteredData = data.filter(
+                    (item) => item.district_code === +value
+                );
 
-        // renderData
-        filteredData.map((item) => {
-            const option = document.createElement("option");
-            option.value = item.code;
-            option.innerText = item.name;
+                filteredData.unshift({
+                    name: "--Chọn Phường / Xã--",
+                    code: 0,
+                });
+            }
+            break;
+    }
 
-            selection.appendChild(option);
-        });
+    // renderData
+    filteredData.map((item) => {
+        const option = document.createElement("option");
+        option.value = item.code;
+        option.innerText = item.name;
+
+        selection.appendChild(option);
     });
 
     return value;
@@ -318,7 +318,7 @@ validate(wardElement, "", "oninput");
 validate(addressElement, "", "onblur");
 validate(addressElement, "", "oninput");
 
-formElement.onsubmit = function (e) {
+formElement.onsubmit = async function (e) {
     e.preventDefault();
 
     const validateList = [];
@@ -353,7 +353,9 @@ formElement.onsubmit = function (e) {
         );
 
         //call API
-        postOrder(newOrder).then(() => {
+        try {
+            await postOrder(newOrder);
+
             cartList.forEach((cartItem) => {
                 productList.forEach((productItem) => {
                     if (cartItem.idSP === productItem.id) {
@@ -368,8 +370,12 @@ formElement.onsubmit = function (e) {
             clearLocalStorage(keyLocalStorageItemCart);
             //redirect to bills page (haven't finished yet)
             window.location.href = "bills.html";
-        });
+        } catch (err) {
+            toast({
+                title: "Lỗi gửi dữ liệu",
+                message: err,
+                type: "error",
+            });
+        }
     }
 };
-
-getOrders().then((data) => console.log(data));

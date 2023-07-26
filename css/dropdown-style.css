@@ -1,0 +1,48 @@
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 6px;
+    box-shadow: var(--box-shadow);
+    z-index: 18;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.dropdown-content.show {
+    display: block;
+
+}
+
+.cart-item img {
+    height: 56px;
+    object-fit: cover;
+}
+
+.dropdown-content table tr td:first-child {
+    min-width: 400px;
+}
+
+.cart-item {
+    display: flex;
+}
+
+.info {
+    padding: 10px;
+    flex: 1;
+}
+
+.info h2 {
+    font-weight: 500;
+    font-size: inherit;
+}
+
+.dropdown-content table th,
+.dropdown-content table td {
+    padding: 6px;
+}

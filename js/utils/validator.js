@@ -28,7 +28,7 @@ export default function validate(inputElement, type = "", event = "") {
     }
 
     function handleValidate(value) {
-        if (!value.trim() || value === "0") {
+        if (!value.trim() || (value === "0" && type === "")) {
             errorMessage.innerHTML = "Vui lòng nhập";
         } else
             switch (type) {
@@ -46,7 +46,8 @@ export default function validate(inputElement, type = "", event = "") {
                                 value.trim()
                             )
                         ) {
-                            errorMessage.innerHTML = "Email sai định dạng";
+                            errorMessage.innerHTML =
+                                "Email sai định dạng. VD: abc@gmail.com";
                         }
                     }
                     break;
@@ -70,6 +71,12 @@ export default function validate(inputElement, type = "", event = "") {
                         ) {
                             errorMessage.innerHTML =
                                 "Số điện thoại phải > 9 số và < 11 số";
+                        } else if (
+                            value.trim().charAt(0) === "0" &&
+                            value.trim().charAt(1) === "0"
+                        ) {
+                            errorMessage.innerHTML =
+                                "Số điện thoại không thể bắt đầu bằng 00";
                         }
                     }
                     break;

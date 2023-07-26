@@ -13,7 +13,6 @@ th {
     text-align: left;
 }
 
-
 td {
     padding: 10px;
 }
@@ -23,12 +22,13 @@ td {
     color: var(--primary-color);
 }
 
-button.details {
+button.dropbtn {
     border: none;
     background-color: transparent;
     color: var(--accent-color);
     font-weight: bold;
     cursor: pointer;
+    padding: 10px 10px 10px 0;
 }
 
 .action-btns {
