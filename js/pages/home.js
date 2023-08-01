@@ -6,11 +6,8 @@ import CartItem from "../models/CartItem.js";
 
 const productList = getLocalStorage(keyLocalStorageListSP);
 
-renderProductList(productList);
-
-const addSPBtns = document.querySelectorAll(".add-to-cart");
-
-function renderProductList(list) {
+//IIFE
+(function renderProductList(list) {
     const container = document.querySelector(".container");
 
     let html = "";
@@ -35,7 +32,9 @@ function renderProductList(list) {
     });
 
     container.innerHTML = html;
-}
+})(productList);
+
+const addSPBtns = document.querySelectorAll(".add-to-cart");
 
 function addSP(id) {
     const newCartItem = new CartItem(+id, 1);

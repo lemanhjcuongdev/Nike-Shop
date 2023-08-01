@@ -1,5 +1,8 @@
+import administrativeUnits from "../api/getAdministrativeUnits.js";
+import orders from "../api/orders.js";
 import amountPicker from "../components/amount-picker/AmountPicker.js";
 import { cartList, changeIndicator } from "../components/navbar/NavBar.js";
+import toast from "../components/toast/Toast.js";
 import {
     keyLocalStorageItemCart,
     keyLocalStorageListSP,
@@ -9,12 +12,11 @@ import {
     getLocalStorage,
     setLocalStorage,
 } from "../localStorage.js";
-import getParentElement from "../utils/getParentElement.js";
-import toast from "../components/toast/Toast.js";
-import { getLocation } from "../api/getAdministrativeUnits.js";
-import validate from "../utils/validator.js";
 import OrderInfo from "../models/OrderInfo.js";
-import { getOrders, postOrder } from "../api/orders.js";
+import calculateTotalPrice from "../utils/calculateTotalPrice.js";
+import createRandomId from "../utils/createRandomId.js";
+import getParentElement from "../utils/getParentElement.js";
+import validate from "../utils/validator.js";
 
 const productList = getLocalStorage(keyLocalStorageListSP);
 
@@ -32,23 +34,12 @@ const emailElement = document.querySelector("#email");
 const telElement = document.querySelector("#tel");
 const messageElement = document.querySelector("#message");
 
-renderCartList(cartList);
+const submitButton = document.querySelector("button[type=submit]");
+
 getTotalPrice(cartList);
 
-const decreaseBtns = document.querySelectorAll(".decrease-btn");
-const increaseBtns = document.querySelectorAll(".increase-btn");
-const removeBtns = document.querySelectorAll(".remove-btn");
-
-const provinceElement = document.querySelector("#province");
-const districtElement = document.querySelector("#district");
-const wardElement = document.querySelector("#ward");
-const addressElement = document.querySelector("#address");
-
-let selectedProvince;
-let selectedDistrict;
-let selectedWard;
-
-function renderCartList(list) {
+//IIFE
+(function renderCartList(list) {
     let html = "";
 
     list.forEach(function (item) {
@@ -99,7 +90,20 @@ function renderCartList(list) {
     });
 
     setEmptyState(list);
-}
+})(cartList);
+
+const decreaseBtns = document.querySelectorAll(".decrease-btn");
+const increaseBtns = document.querySelectorAll(".increase-btn");
+const removeBtns = document.querySelectorAll(".remove-btn");
+
+const provinceElement = document.querySelector("#province");
+const districtElement = document.querySelector("#district");
+const wardElement = document.querySelector("#ward");
+const addressElement = document.querySelector("#address");
+
+let selectedProvince;
+let selectedDistrict;
+let selectedWard;
 
 export function setEmptyState(list) {
     const container = document.querySelector(".container");
@@ -121,15 +125,9 @@ export function setEmptyState(list) {
 }
 
 export function getTotalPrice(list) {
-    const total = list.reduce(function (sum, item) {
-        const processingProduct = productList.filter(
-            (product) => item.idSP === product.id
-        )[0];
+    const total = calculateTotalPrice(list);
 
-        return (sum += item.soLuong * processingProduct.price);
-    }, 0);
-
-    totalPriceElement.innerText = `Total: $${total}`;
+    totalPriceElement.innerText = `Total Price: $${total}`;
 }
 
 decreaseBtns.forEach(function (decreaseBtn) {
@@ -214,7 +212,7 @@ buyBtn.addEventListener("click", function (e) {
 
 async function loadLocation(path, selector, value = "") {
     // fetchAPI
-    const data = await getLocation(path);
+    const data = await administrativeUnits.getLocation(path);
 
     let filteredData = [];
     const selection = document.querySelector(selector);
@@ -335,6 +333,10 @@ formElement.onsubmit = async function (e) {
     const isValid = validateList.every((item) => item === true);
 
     if (isValid) {
+        submitButton.innerHTML = `<i id="loading-icon" class="fa-solid fa-circle-notch"></i>`;
+        submitButton.style = "opacity: 0.8";
+        submitButton.disabled = true;
+
         const customerName = `${lastnameElement.value.trim()} ${firstnameElement.value.trim()}`;
 
         const customerAddress = `${addressElement.value.trim()}, ${selectedWard}, ${selectedDistrict}, ${selectedProvince}`;
@@ -342,7 +344,7 @@ formElement.onsubmit = async function (e) {
         const orderDate = Date.now();
 
         const newOrder = new OrderInfo(
-            Math.round(Math.random() * 1000000),
+            await createRandomId(),
             customerName,
             telElement.value.trim(),
             emailElement.value.trim(),
@@ -354,7 +356,7 @@ formElement.onsubmit = async function (e) {
 
         //call API
         try {
-            await postOrder(newOrder);
+            await orders.postOrder(newOrder);
 
             cartList.forEach((cartItem) => {
                 productList.forEach((productItem) => {

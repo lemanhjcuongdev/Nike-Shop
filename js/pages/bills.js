@@ -1,25 +1,25 @@
-import { deleteOrder, getOrders } from "../api/orders.js";
+import orders from "../api/orders.js";
+import { cartList, changeIndicator } from "../components/navbar/NavBar.js";
+import toast from "../components/toast/Toast.js";
 import { keyLocalStorageListSP } from "../constants.js";
 import { getLocalStorage, setLocalStorage } from "../localStorage.js";
+import calculateTotalPrice from "../utils/calculateTotalPrice.js";
 import { dateConverter } from "../utils/dateConverter.js";
-import { cartList, changeIndicator } from "../components/navbar/NavBar.js";
 import getParentElement from "../utils/getParentElement.js";
-import toast from "../components/toast/Toast.js";
 
 const productList = getLocalStorage(keyLocalStorageListSP);
 
 const tbody = document.querySelector("tbody");
 
-async function renderOrderList() {
+//IIFE
+(async function renderOrderList() {
     //load cart status
     changeIndicator(cartList);
 
     //get API then render orders
-    const data = await getOrders();
+    const data = await orders.getOrders();
 
     let html = "";
-
-    console.log(data);
 
     data.forEach((order) => {
         const orderDate = dateConverter(order.order_date);
@@ -31,13 +31,7 @@ async function renderOrderList() {
             0
         );
 
-        const totalPrice = order.cart_items.reduce((sum, cartProduct) => {
-            const processingProduct = productList.filter(
-                (product) => cartProduct.idSP === product.id
-            )[0];
-
-            return (sum += cartProduct.soLuong * processingProduct.price);
-        }, 0);
+        const totalPrice = calculateTotalPrice(order.cart_items);
 
         let cartItemHtml = "";
         order.cart_items.forEach((cart_item) => {
@@ -79,6 +73,12 @@ async function renderOrderList() {
                                 <i class="fa-solid fa-caret-down"></i>
                             </button>
                             <div id="myDropdown" class="dropdown-content">
+                                <h3>Thông tin khách hàng</h3>
+                                <p>Địa chỉ: ${order.address}</p>
+                                <p>Số điện thoại: ${order.phone_number}</p>
+                                <p>Email: ${order.email}</p>
+                                <p>Ghi chú: ${order.message}</p>
+                                <h3>Thông tin đơn hàng</h3>
                                 <table>
                                     <thead>
                                         <tr>
@@ -120,9 +120,7 @@ async function renderOrderList() {
     toggleDropdownList();
 
     handleReturn(data);
-}
-
-renderOrderList();
+})();
 
 function toggleDropdownList() {
     const dropdownElements = document.querySelectorAll(".dropdown");
@@ -178,7 +176,7 @@ function handleReturn(data) {
 
                 itemRow.remove();
 
-                await deleteOrder(returnId);
+                await orders.deleteOrder(returnId);
 
                 toast({
                     title: "Thành công",

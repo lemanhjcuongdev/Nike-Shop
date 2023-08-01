@@ -1,7 +1,7 @@
 import toast from "../components/toast/Toast.js";
 import { orderAPIRoot } from "../constants.js";
 
-export const getOrders = async () => {
+const getOrders = async () => {
     try {
         const options = {
             method: "GET",
@@ -24,7 +24,7 @@ export const getOrders = async () => {
     }
 };
 
-export const postOrder = async (orderData) => {
+const postOrder = async (orderData) => {
     try {
         const options = {
             method: "POST",
@@ -48,7 +48,7 @@ export const postOrder = async (orderData) => {
     }
 };
 
-export const deleteOrder = async (id) => {
+const deleteOrder = async (id) => {
     try {
         const options = {
             method: "DELETE",
@@ -70,3 +70,14 @@ export const deleteOrder = async (id) => {
         });
     }
 };
+
+//IIFE
+const orders = (function () {
+    return {
+        getOrders,
+        postOrder,
+        deleteOrder,
+    };
+})();
+
+export default orders;

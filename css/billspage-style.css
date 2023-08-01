@@ -31,6 +31,10 @@ button.dropbtn {
     padding: 10px 10px 10px 0;
 }
 
+p+h3 {
+    margin-top: 10px;
+}
+
 .action-btns {
     display: flex;
     justify-content: space-between;

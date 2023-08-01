@@ -1,7 +1,7 @@
 import toast from "../components/toast/Toast.js";
 import { locationAPIRoot } from "../constants.js";
 
-export const getLocation = async (path) => {
+const getLocation = async (path) => {
     try {
         const response = await fetch(`${locationAPIRoot}${path}`);
 
@@ -16,3 +16,12 @@ export const getLocation = async (path) => {
         });
     }
 };
+
+//IIFE
+const administrativeUnits = (function () {
+    return {
+        getLocation,
+    };
+})();
+
+export default administrativeUnits;
