@@ -23,5 +23,4 @@ jobs:
 
     - name: Build and deploy
       run: |
-        npm run build
-        npx json-server --watch backend/db.json
+        json-server --watch backend/db.json
