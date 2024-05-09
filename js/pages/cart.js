@@ -204,7 +204,7 @@ buyBtn.addEventListener("click", function (e) {
         modalElement.classList.add("active");
 
         //load province on click buy btn
-        loadLocation("/p/", "#province");
+        loadLocation("/province/", "#province");
         districtElement.disabled = true;
         wardElement.disabled = true;
     }
@@ -269,7 +269,7 @@ async function loadLocation(path, selector, value = "") {
 }
 
 provinceElement.addEventListener("change", (e) => {
-    loadLocation("/d/", "#district", +e.target.value);
+    loadLocation("/province/district/", "#district", +e.target.value);
 
     selectedProvince = e.target.options[e.target.selectedIndex].innerText;
 
@@ -278,7 +278,7 @@ provinceElement.addEventListener("change", (e) => {
 });
 
 districtElement.addEventListener("change", (e) => {
-    loadLocation("/w/", "#ward", +e.target.value);
+    loadLocation("/province/ward/", "#ward", +e.target.value);
 
     selectedDistrict = e.target.options[e.target.selectedIndex].innerText;
 
