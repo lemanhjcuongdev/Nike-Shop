@@ -1,8 +1,0 @@
-{
-    "scripts": {
-        "start": "json-server --db backend/db.json --port 3000"
-    },
-    "dev": {
-        "command": "npm run start"
-    }
-}
