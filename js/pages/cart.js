@@ -221,9 +221,11 @@ async function loadLocation(path, selector, value = "") {
         case "#province":
             {
                 filteredData = data;
+                console.log("FILTERED DATA: ", filteredData);
 
                 // renderData
                 filteredData.map((item) => {
+                    console.log("ITEM: ", item);
                     const option = document.createElement("option");
                     option.value = item.province_id;
                     option.innerText = item.province_name;

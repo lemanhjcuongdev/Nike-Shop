@@ -6,7 +6,7 @@ const data = getLocalStorage(keyLocalStorageListSP);
 
 data.length !== 0 ? data : setLocalStorage(keyLocalStorageListSP, listData);
 
-const jsonServer = require("json-server"); // importing json-server library
+import jsonServer from "json-server"; // importing json-server library
 const server = jsonServer.create();
 const router = jsonServer.router("backend/db.json");
 const middlewares = jsonServer.defaults();
