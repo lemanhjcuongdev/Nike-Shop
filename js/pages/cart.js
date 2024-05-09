@@ -221,6 +221,15 @@ async function loadLocation(path, selector, value = "") {
         case "#province":
             {
                 filteredData = data;
+
+                // renderData
+                filteredData.map((item) => {
+                    const option = document.createElement("option");
+                    option.value = item.province_id;
+                    option.innerText = item.province_name;
+
+                    selection.appendChild(option);
+                });
             }
             break;
         case "#district":
@@ -238,6 +247,15 @@ async function loadLocation(path, selector, value = "") {
                     name: "--Chọn Quận / Huyện--",
                     code: 0,
                 });
+
+                // renderData
+                filteredData.map((item) => {
+                    const option = document.createElement("option");
+                    option.value = item.district_id;
+                    option.innerText = item.district_name;
+
+                    selection.appendChild(option);
+                });
             }
             break;
         case "#ward":
@@ -252,18 +270,18 @@ async function loadLocation(path, selector, value = "") {
                     name: "--Chọn Phường / Xã--",
                     code: 0,
                 });
+
+                // renderData
+                filteredData.map((item) => {
+                    const option = document.createElement("option");
+                    option.value = item.ward_id;
+                    option.innerText = item.ward_name;
+
+                    selection.appendChild(option);
+                });
             }
             break;
     }
-
-    // renderData
-    filteredData.map((item) => {
-        const option = document.createElement("option");
-        option.value = item.code;
-        option.innerText = item.name;
-
-        selection.appendChild(option);
-    });
 
     return value;
 }
