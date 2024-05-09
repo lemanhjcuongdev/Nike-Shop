@@ -212,7 +212,7 @@ buyBtn.addEventListener("click", function (e) {
 
 async function loadLocation(path, selector, value = "") {
     // fetchAPI
-    const data = await administrativeUnits.getLocation(path);
+    const data = await administrativeUnits.getLocation(path).result;
 
     let filteredData = [];
     const selection = document.querySelector(selector);
